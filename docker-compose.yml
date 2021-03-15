@@ -1,0 +1,16 @@
+services:
+  api:
+    build: ./api-node
+    ports:
+     - "8123:8123"
+    depends_on:
+     - db
+    environment:
+     - DATABASE_HOST=db
+    volumes:
+     - ./api-node/api:/app/api
+  db:
+    build: ./database-service
+    command: --lower_case_table_names=1
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
