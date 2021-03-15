@@ -5,12 +5,17 @@
   "main": "db.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-dev": "nodemon -L ./server.js localhost 8123"
+
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "mariadb": "^2.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
