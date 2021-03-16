@@ -25,3 +25,39 @@ docker run -ti --rm --name node-builder -v $PWD/api-node/api:/usr/src node:lts-a
 ````
 
 Then run `docker-compose up`
+
+
+
+### Specs API
+
+1. `GET http://api.monsite.ovh/categories` *permet de connaître toute les catégories disponibles)*
+
+   *Présentation JSON attendue :*
+
+   ```json
+   [
+       {
+           "id": 1,
+           "nom": "Guitare"
+       },
+       {
+           "id": 2,
+           "nom": "Piano"
+       },
+       {
+           "id": 3,
+           "nom": "Natation"
+       },
+       {
+           "id": 4,
+           "nom": "Code"
+       },
+       {
+           "id": 5,
+           "nom": "Révisions"
+       }
+   ]
+   ```
+
+   
+
