@@ -2,7 +2,7 @@
  
 module.exports = (sequelize, SequelizeLib) => {
   const Activite = sequelize.define("Activites", {
-    id_categorie: {
+    id_activite: {
       type: SequelizeLib.INTEGER,
       primaryKey: true
     },
