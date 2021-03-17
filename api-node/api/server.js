@@ -1,28 +1,28 @@
 const express = require('express')
-const pool = require('./db')
-const app = express()
+const cors = require('cors');
 const port = 8123
 
-// expose an endpoint "people"
-app.get('/employee', async (req, res) => {
-    let conn;
-    try {
-        // establish a connection to MariaDB
-        conn = await pool.getConnection();
+//Init express
+const app = express()
 
-        // create a new query
-        var query = "SELECT * FROM EMPLOYEE;";
-        
-        // execute the query and set the result to a new variable
-        var rows = await conn.query(query);
-        
-        // return the results
-        res.send(rows);
-    } catch (err) {
-        throw err;
-    } finally {
-        if (conn) return conn.release();
-    }
-});
+//Enable CORS(Cross Origin Resource Sharing)
+app.use(cors());
 
+// parsing body request
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+//Require the models
+const db = require('./models'); 
+db.logskills_database.sync();
+
+
+
+// include router
+const router = require("./router")
+
+//Require the routes
+require("./router")(app);
+
+//Listen on port
 app.listen(port, () => console.log(`Listening on port ${port}`));
