@@ -16,3 +16,13 @@ VALUES (1,1);
 
 INSERT INTO Log_Activites (temps_total, temps_actif, id_activite, date)
 VALUES (90, 75, 1, curdate());
+
+INSERT INTO Categories (nom)
+VALUES ('Loisirs');
+INSERT INTO Categories (nom)
+VALUES ('Travails');
+INSERT INTO Categories (nom)
+VALUES ('Codes');
+INSERT INTO Categories (nom)
+VALUES ('Sports');
+

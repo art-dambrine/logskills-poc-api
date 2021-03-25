@@ -1,9 +1,9 @@
-const db = require("../models")
+const db = require("../config/db.config")
 const Activites = db.Activites;
 const Op = db.SequelizeLib.Op;
 
 //Renvois toutes les activités
-exports.getAllActivites = (req, res) => {
+exports.getAll = (req, res) => {
 
   Activites.findAll().then(queryResult =>{
     if (queryResult[0] != null){
@@ -18,7 +18,7 @@ exports.getAllActivites = (req, res) => {
 };
 
 //Renvois toutes les activités d'un utilisateurs (parameters : user_id) 
-exports.getActivites = (req, res) => {
+exports.getByID = (req, res) => {
   var userID = req.body.id_utilisateur
 
   var condition = {id_utilisateur : { [Op.eq] : `${userID}` }}

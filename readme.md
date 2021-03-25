@@ -29,9 +29,74 @@ Then run `docker-compose up`
 
 
 ### Specs API
+*---------RAPPEL---------*
+*Source : https://grokonez.com/node-js/jwt/nodejs-jwt-authentication-nodejs-express-restapis-json-web-token-bcryptjs-sequelize-mysql*
+*Pour acceder à une page sécurisé, le token de l'utilisateur, généré par la fonction SignIn, doit être envoyé dans le header sous forme de Clé-Valeur*
+*KEY: x-access-token* 
+*EXEMPLE VALUE: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTM4MzM5NTM0LCJleHAiOjE1Mzg0MjU5MzR9.wKse6-ERNP4g_sPBdM72GZgpNpHH87UGbzYH3_0mdpo*
 
-1. `GET http://api.monsite.ovh/categories` *permet de connaître toute les catégories disponibles)*
 
+*GESTION DES UTILISATEURS*
+
+1. `POST http://api.monsite.ovh/auth/signup` *Enregistrement d'un utilisateur*
+    *Format de la requete :*
+    ```json
+    {
+        "nom": "Adam",
+        "prenom": "Francois",
+        "mail": "adam.francois@gmail.com",
+        "login": "Fradam",
+        "password": "123456789",
+        "roles": ["utilisateur"]
+    }
+    ```
+    *Format de la reponse :*
+
+    200 OK - Utilisateur enregistré
+
+2. `POST http://api.monsite.ovh/auth/signin` *Connexion d'un utilisateur*
+    *Format de la requete :*
+    ```json
+    {
+        "login": "Fradam",
+        "password": "123456789"
+    }
+    ```
+    *Format de la reponse :*
+    ```json
+    {
+        "auth": true,
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTM4MzM5NTM0LCJleHAiOjE1Mzg0MjU5MzR9.wKse6-ERNP4g_sPBdM72GZgpNpHH87UGbzYH3_0mdpo",
+    }
+    ```
+
+3. `GET http://api.monsite.ovh/profil` *recuperation du profil de l'utilisateur (nom, prenom, mail, roles)*
+    *PAGE SECURISE: Tout les roles*
+    *Format de la reponse :*
+    ```json
+    {
+        "description": "page de l'utilisateur",
+        "utilisateur" :{
+            "nom": "Adam",
+            "prenom": "Francois",
+            "mail": "adam.francois@gmail.com",
+            "login": "Fradam",
+            "roles": [
+                {
+                    "id": 3,
+                    "nom": "utilisateur"
+                }
+            ]
+        }   
+    }
+    ```
+
+4. `GET http://api.monsite.ovh/admin-profil` *Liste de tout les profils créé dans la base*
+    *PAGE SECURISE: Role ADMIN uniquement*
+    *Format de la requete :*
+    *Format de la reponse :*
+
+5. `GET http://api.monsite.ovh/categories` *permet de connaître toute les catégories disponibles)*
    *Présentation JSON attendue :*
 
    ```json
@@ -58,6 +123,3 @@ Then run `docker-compose up`
        }
    ]
    ```
-
-   
-
