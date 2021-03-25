@@ -1,0 +1,12 @@
+version: "3"
+services:
+  api:
+    build: 
+      context: ./api-node
+      dockerfile: Dockerfile.prod
+    ports:
+     - "80:8123"
+    environment:
+     - DATABASE_HOST=db
+    volumes:
+     - './api-node/api:/app'
