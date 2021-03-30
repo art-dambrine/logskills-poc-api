@@ -22,7 +22,7 @@ exports.signup = (req, res) => {
 	}).then(user => {
 		Role.findAll({
 		  where: {
-			name: {
+			nom: {
 			  [Op.or]: req.body.roles
 			}
 		  }
@@ -43,7 +43,7 @@ exports.signin = (req, res) => {
 	
 	User.findOne({
 		where: {
-			username: req.body.username
+			login: req.body.login
 		}
 	}).then(user => {
 		if (!user) {

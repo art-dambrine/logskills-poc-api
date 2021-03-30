@@ -5,6 +5,7 @@ CREATE TABLE `Utilisateurs` (
   `mail` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `id_role` int,
   `cree_le` datetime,
   `modifie_le` datetime
 );
@@ -16,6 +17,11 @@ CREATE TABLE `Categories` (
 
 CREATE TABLE `Tags` (
   `id_tag` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL
+);
+
+CREATE TABLE `Roles` (
+  `id_role` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL
 );
 
@@ -45,6 +51,12 @@ CREATE TABLE `Log_Activites` (
   `date` datetime NOT NULL
 );
 
+CREATE TABLE `Roles_Utilisateurs` (
+  `id_role` int NOT NULL,
+  `id_utilisateur` int NOT NULL,
+  PRIMARY KEY (`id_role`, `id_utilisateur`)
+);
+
 ALTER TABLE `Activites` ADD FOREIGN KEY (`id_categorie`) REFERENCES `Categories` (`id_categorie`);
 
 ALTER TABLE `Activites` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id_utilisateur`);
@@ -54,6 +66,12 @@ ALTER TABLE `Log_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activite
 ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id_activite`);
 
 ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_tag`) REFERENCES `Tags` (`id_tag`);
+
+ALTER TABLE `Roles_Utilisateurs` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id_utilisateur`);
+
+ALTER TABLE `Roles_Utilisateurs` ADD FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`);
+
+
 
 /* INSERT DATA */
 INSERT INTO Utilisateurs (nom, prenom, mail, login, password, cree_le, modifie_le)

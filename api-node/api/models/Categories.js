@@ -9,10 +9,11 @@ module.exports = (sequelize, SequelizeLib) => {
       nom: {
         type: SequelizeLib.STRING
       }
+    },
+    {
+      timestamps: false,
     });
     Categorie.removeAttribute('id');
-    Categorie.removeAttribute('createdAt');
-    Categorie.removeAttribute('updatedAt');
     return Categorie;
   };
   

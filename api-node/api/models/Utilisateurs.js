@@ -27,9 +27,10 @@ module.exports = (sequelize, SequelizeLib) => {
       modifie_le: {
         type: SequelizeLib.DATE
       },
+    },
+    {
+      timestamps: false,
     });
     Utilisateur.removeAttribute('id');
-    Utilisateur.removeAttribute('createdAt');
-    Utilisateur.removeAttribute('updatedAt');
     return Utilisateur;
   };

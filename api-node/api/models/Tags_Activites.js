@@ -1,14 +1,15 @@
 //Tags MODEL
  
 module.exports = (sequelize, SequelizeLib) => {
-    const Tag = sequelize.define("Tags", {
+    const Tag = sequelize.define("Tags_Activites", {
       id_tag: {
         type: SequelizeLib.INTEGER,
         primaryKey: true
       },
-      nom: {
-        type: SequelizeLib.STRING
-      }
+      id_activites: {
+        type: SequelizeLib.INTEGER,
+        primaryKey: true
+      },
     },
     {
       timestamps: false,
@@ -16,8 +17,3 @@ module.exports = (sequelize, SequelizeLib) => {
     Tag.removeAttribute('id');
     return Tag;
   };
-  
-  
-  
-  
-  

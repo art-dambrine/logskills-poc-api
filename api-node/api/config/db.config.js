@@ -23,11 +23,13 @@ db.Utilisateurs = require("../models/Utilisateurs.js")(logskills_database, Seque
 db.Categories = require("../models/Categories.js")(logskills_database, SequelizeLib);
 db.Roles= require('../models/Roles.js')(logskills_database, SequelizeLib);
 db.Tags = require('../models/Tags.js')(logskills_database, SequelizeLib);
+db.Roles_Utilisateurs= require('../models/Roles_Utilisateurs.js')(logskills_database, SequelizeLib);
+db.Tags_Activites = require('../models/Tags_Activites.js')(logskills_database, SequelizeLib);
  
-db.Roles.belongsToMany(db.Utilisateurs, { through: 'Utilisateurs_Roles', foreignKey: 'id_role', otherKey: 'id_utilisateur'});
-db.Utilisateurs.belongsToMany(db.Roles, { through: 'Utilisateurs_Roles', foreignKey: 'id_utilisateur', otherKey: 'id_role'});
+db.Roles.belongsToMany(db.Utilisateurs, { through: 'Roles_Utilisateurs', foreignKey: 'id_role', otherKey: 'id_utilisateur'});
+db.Utilisateurs.belongsToMany(db.Roles, { through: 'Roles_Utilisateurs', foreignKey: 'id_utilisateur', otherKey: 'id_role'});
 
-db.Tags.belongsToMany(db.Activites, { through: 'Activites_Tags', foreignKey: 'id_tag', otherKey: 'id_activite'});
-db.Activites.belongsToMany(db.Tags, { through: 'Activites_Tags', foreignKey: 'id_activite', otherKey: 'id_tag'});
+db.Tags.belongsToMany(db.Activites, { through: 'Tags_Activites', foreignKey: 'id_tag', otherKey: 'id_activite'});
+db.Activites.belongsToMany(db.Tags, { through: 'Tags_Activites', foreignKey: 'id_activite', otherKey: 'id_tag'});
 
 module.exports = db;

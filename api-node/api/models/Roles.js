@@ -4,12 +4,13 @@ module.exports = (sequelize, SequelizeLib) => {
         type: SequelizeLib.INTEGER,
         primaryKey: true
 	  },
-	  name: {
+	  nom: {
 		  type: SequelizeLib.STRING
 	  }
+	},
+	{
+	  timestamps: false,
 	});
 	Role.removeAttribute('id');
-    Role.removeAttribute('createdAt');
-    Role.removeAttribute('updatedAt');
 	return Role;
 }

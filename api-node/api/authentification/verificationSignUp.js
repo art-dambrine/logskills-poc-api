@@ -6,7 +6,7 @@ const Utilisateurs = db.Utilisateurs;
 const Roles = db.Roles;
 
 controlDuplicationLoginOuEmail = (req, res, next) => {
-	User.findOne({
+	Utilisateurs.findOne({
 		where: {
 			login: req.body.login
 		} 
@@ -17,7 +17,7 @@ controlDuplicationLoginOuEmail = (req, res, next) => {
 		}
 		
 		// -> Check Email is already in use
-		User.findOne({ 
+		Utilisateurs.findOne({ 
 			where: {
 				mail: req.body.mail
 			} 

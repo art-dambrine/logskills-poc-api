@@ -18,10 +18,11 @@ module.exports = (sequelize, SequelizeLib) => {
       date : {
         type: SequelizeLib.DATE
       }
+    },
+    {
+      timestamps: false,
     });
     Log_Activite.removeAttribute('id');
-    Log_Activite.removeAttribute('createdAt');
-    Log_Activite.removeAttribute('updatedAt');
     return Log_Activite;
   };
   
