@@ -10,6 +10,10 @@ services:
      - db
     environment:
      - DATABASE_HOST=db
+     - DATABASE_NAME=LOGSKILLS
+     - DATABASE_USER=logskills_user
+     - DATABASE_PASS=123
+     
     volumes:
      - './api-node/api:/app'
   db:

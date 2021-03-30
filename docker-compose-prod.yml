@@ -7,6 +7,9 @@ services:
     ports:
      - "80:8123"
     environment:
-     - DATABASE_HOST=db
+     - DATABASE_HOST=changeit
+     - DATABASE_NAME=changeit
+     - DATABASE_USER=changeit
+     - DATABASE_PASS=changeit
     volumes:
      - './api-node/api:/app'

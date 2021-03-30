@@ -1,9 +1,9 @@
 // import mariadb
 module.exports = {
-  HOST: "db",
-  USER: "logskills_user",
-  PASSWORD: "123",
-  DB: "LOGSKILLS",
+  HOST: process.env.DATABASE_HOST,
+  USER: process.env.DATABASE_USER,
+  PASSWORD: process.env.DATABASE_PASS,
+  DB: process.env.DATABASE_NAME,
   dialect: "mariadb",
   pool: {
     max: 5,
