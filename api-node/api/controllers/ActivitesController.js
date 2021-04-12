@@ -66,12 +66,14 @@ exports.create = (req, res) => {
           cree_le: Date.now(),
           modifie_le: Date.now()
         }).then(activite => {
-          for(let i=0; i<req.body.tags.length; i++){
-            Tags.create(
-              {
-                nom:req.body.tags[i]
-              }
-            )
+          if(req.body.hasOwnProperty('tags')){
+            for(let i=0; i<req.body.tags.length; i++){
+              Tags.create(
+                {
+                  nom:req.body.tags[i]
+                }
+              )
+            }    
           }
           }).then(tags => {
             //activite.setTags(tags).then(() => {
