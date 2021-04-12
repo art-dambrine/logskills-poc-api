@@ -59,7 +59,7 @@ exports.signin = (req, res) => {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Login ou mot de passe incorrect" });
 		}
 		
-		var token = jwt.sign({ id: user.id_utilisateur }, config.secret, {
+		var token = jwt.sign({ id: user.id }, config.secret, {
 		  expiresIn: 86400 // expires in 24 hours
 		});
 		

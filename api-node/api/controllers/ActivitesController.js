@@ -50,7 +50,7 @@ exports.create = (req, res) => {
     where: {
       id : req.body.id_categorie
     },
-    attributes: [ 'id']
+    attributes: ['id']
   }).then(queryResult =>{
     if (queryResult != null){
       id_cat=queryResult.dataValues['id']
