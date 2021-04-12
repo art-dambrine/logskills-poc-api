@@ -7,7 +7,7 @@ const Op = db.SequelizeLib.Op;
 //Renvois toutes les activités
 exports.getAll = (req, res) => {
 
-  var condition = {id : { [Op.eq] : `${req.userId}` }}
+  var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }}
 
   Logs_Activites.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){

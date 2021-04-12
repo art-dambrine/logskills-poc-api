@@ -8,7 +8,7 @@ const Op = db.SequelizeLib.Op;
 //Renvois toutes les activités
 exports.getAll = (req, res) => {
 
-  var condition = {id : { [Op.eq] : `${req.userId}` }}
+  var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }}
 
   Activites.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
@@ -25,7 +25,7 @@ exports.getAll = (req, res) => {
 //Renvois toutes les activités d'un utilisateurs (parameters : user_id) 
 exports.getByID = (req, res) => {
 
-  var condition = {id: { [Op.eq] : `${req.userId}` }, id_activite : req.param('id')}
+  var condition = {id_utilisateur: { [Op.eq] : `${req.userId}` }, id : req.param('id')}
 
   Activites.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
