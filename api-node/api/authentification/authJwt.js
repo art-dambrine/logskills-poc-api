@@ -21,6 +21,7 @@ verificationToken = (req, res, next) => {
 				});
 		}
 		req.userId = decoded.id;
+		console.log("Token verifié || id user : " + req.userId)
 		next();
 	});
 }

@@ -97,7 +97,7 @@ Then run `docker-compose up`
     *Format de la reponse :*
 
 5. `GET http://api.monsite.ovh/categories` *permet de connaître toute les catégories disponibles)*
-   *Présentation JSON attendue :*
+   *Format de la reponse :*
 
    ```json
    [
@@ -123,3 +123,8 @@ Then run `docker-compose up`
        }
    ]
    ```
+
+6. `POST http://api.monsite.ovh/categories` *permet de créé une categorie)*
+   *PAGE SECURISE: Role ADMIN uniquement*
+    *Format de la requete :*
+    *Format de la reponse :*

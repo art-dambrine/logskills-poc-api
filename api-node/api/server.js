@@ -15,9 +15,22 @@ app.use(express.urlencoded({ extended: true }))
 //Require the models
 const db = require('./config/db.config'); 
 const Roles = db.Roles;
+
+function initial(){
+	Roles.create({
+		nom: "UTILISATEUR"
+	});
+	
+	Roles.create({
+		nom: "ADMIN"
+	});
+
+}
+
 // force: true will drop the table if it already exists
-db.logskills_database.sync({force: true}).then(() => {
-    console.log('Drop and Resync with { force: true }');
+//db.logskills_database.sync({ force: true}).then(() => {
+db.logskills_database.sync({ force: false , alter : true}).then(() => {
+    console.log('Resync');
     initial();
   });
 
@@ -31,15 +44,3 @@ require("./router")(app);
 //Listen on port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-function initial(){
-	Roles.create({
-		id: 1,
-		name: "USER"
-	});
-	
-	Roles.create({
-		id: 2,
-		name: "ADMIN"
-	});
-
-}

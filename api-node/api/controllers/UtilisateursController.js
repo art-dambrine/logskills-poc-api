@@ -3,11 +3,13 @@ const db = require('../config/db.config.js');
 const config = require('../config/securite.config.js');
 const User = db.Utilisateurs;
 const Role = db.Roles;
+const Roles_Utilisateur = db.Roles_Utilisteurs;
 
 const Op = db.SequelizeLib.Op;
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+const { Utilisateurs } = require('../config/db.config.js');
 
 exports.signup = (req, res) => {
 	// Save User to Database
@@ -18,7 +20,9 @@ exports.signup = (req, res) => {
         prenom: req.body.prenom,
         mail: req.body.mail,
 		login: req.body.login,
-		password: bcrypt.hashSync(req.body.password, 8)
+		password: bcrypt.hashSync(req.body.password, 8),
+		cree_le: Date.now(),
+		modifie_le: Date.now()
 	}).then(user => {
 		Role.findAll({
 		  where: {
@@ -55,7 +59,7 @@ exports.signin = (req, res) => {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Login ou mot de passe incorrect" });
 		}
 		
-		var token = jwt.sign({ id: user.id }, config.secret, {
+		var token = jwt.sign({ id: user.id_utilisateur }, config.secret, {
 		  expiresIn: 86400 // expires in 24 hours
 		});
 		
@@ -66,39 +70,39 @@ exports.signin = (req, res) => {
 	});
 }
 
-/*exports.userContent = (req, res) => {
+exports.profil_utilisateur = (req, res) => {
 	User.findOne({
-		where: {id: req.userId},
+		where: {id_utilisateur: req.userId},
 		attributes: ['nom', 'login', 'mail'],
 		include: [{
 			model: Role,
 			attributes: ['id_role', 'nom'],
 			through: {
-				attributes: ['id_utilisateur', 'id_role'],
+				attributes: ['id_role', 'id_utilisateur'],
 			}
 		}]
 	}).then(user => {
 		res.status(200).json({
-			"description": "User Content Page",
-			"user": user
+			"description": "Information de l'utilisateur",
+			"utilisateur": user
 		});
 	}).catch(err => {
 		res.status(500).json({
-			"description": "Can not access User Page",
+			"description": "Echec de recupération des informations de l'utilisateur",
 			"error": err
 		});
 	})
 }
-
+/*
 exports.adminBoard = (req, res) => {
 	User.findOne({
 		where: {id: req.userId},
 		attributes: ['name', 'username', 'email'],
 		include: [{
 			model: Role,
-			attributes: ['id', 'name'],
+			attributes: ['id', 'nom'],
 			through: {
-				attributes: ['userId', 'roleId'],
+				attributes: ['id_utilisateur', 'id_role'],
 			}
 		}]
 	}).then(user => {

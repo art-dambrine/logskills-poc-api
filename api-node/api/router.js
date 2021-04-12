@@ -9,24 +9,24 @@ module.exports = app => {
 
     //Gestion Activites
     const ActivitesController = require("./controllers/ActivitesController.js")
-    router.get("/activites", ActivitesController.getAll)
-    /*router.get("/create", ActivitesController.create)
-    router.post("/", ActivitesController.store)
-    router.get("/:id/edit", ActivitesController.edit)
-    router.put("/:id", ActivitesController.update)
-    router.delete("/:id", ActivitesController.destroy)*/
+    router.get("/activites",[authJwt.verificationToken], ActivitesController.getAll)
+    router.get("/activites/:id", [authJwt.verificationToken], ActivitesController.getByID)
+    router.post("/activites", [authJwt.verificationToken], ActivitesController.create)
+    router.put("/activites/:id", [authJwt.verificationToken], ActivitesController.update)
+    router.delete("/activites/:id",[authJwt.verificationToken], ActivitesController.delete)
 
     //Gestion Utilisateurs
     const UtilisateursController = require('./controllers/UtilisateursController.js');
 	router.post('/auth/signup', [verificationSignUp.controlDuplicationLoginOuEmail, verificationSignUp.existenceRole], UtilisateursController.signup);
 	router.post('/auth/signin', UtilisateursController.signin);
-	//router.get('/test/user', [authJwt.verificationToken], UtilisateursController.userContent);
+	router.get('/profil', [authJwt.verificationToken], UtilisateursController.profil_utilisateur);
 	//router.get('/test/admin', [authJwt.verificationToken, authJwt.verificationSiAdmin], UtilisateursController.adminBoard);
 
 
     //Gestion Catégorie
     const CategoriesController = require("./controllers/CategoriesController.js")
     router.get("/categories", CategoriesController.getAll)
+    router.post("/categories", CategoriesController.create)
 
     //Gestion des Logs
 

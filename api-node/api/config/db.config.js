@@ -5,6 +5,7 @@ const SequelizeLib = require("sequelize");
 const logskills_database = new SequelizeLib(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
+  waitForConnections: true,
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -24,12 +25,12 @@ db.Categories = require("../models/Categories.js")(logskills_database, Sequelize
 db.Roles= require('../models/Roles.js')(logskills_database, SequelizeLib);
 db.Tags = require('../models/Tags.js')(logskills_database, SequelizeLib);
 db.Roles_Utilisateurs= require('../models/Roles_Utilisateurs.js')(logskills_database, SequelizeLib);
-db.Tags_Activites = require('../models/Tags_Activites.js')(logskills_database, SequelizeLib);
+//db.Tags_Activites = require('../models/Tags_Activites.js')(logskills_database, SequelizeLib);
  
 db.Roles.belongsToMany(db.Utilisateurs, { through: 'Roles_Utilisateurs', foreignKey: 'id_role', otherKey: 'id_utilisateur'});
 db.Utilisateurs.belongsToMany(db.Roles, { through: 'Roles_Utilisateurs', foreignKey: 'id_utilisateur', otherKey: 'id_role'});
 
-db.Tags.belongsToMany(db.Activites, { through: 'Tags_Activites', foreignKey: 'id_tag', otherKey: 'id_activite'});
-db.Activites.belongsToMany(db.Tags, { through: 'Tags_Activites', foreignKey: 'id_activite', otherKey: 'id_tag'});
+//db.Tags.belongsToMany(db.Activites, { through: 'Tags_Activites', foreignKey: 'id_tag', otherKey: 'id_activite'});
+//db.Activites.belongsToMany(db.Tags, { through: 'Tags_Activites', foreignKey: 'id_activite', otherKey: 'id_tag'});
 
 module.exports = db;
