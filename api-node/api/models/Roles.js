@@ -1,9 +1,5 @@
 module.exports = (sequelize, SequelizeLib) => {
 	const Role = sequelize.define('Roles', {
-	  id_role: {
-        type: SequelizeLib.INTEGER,
-        primaryKey: true
-	  },
 	  nom: {
 		  type: SequelizeLib.STRING
 	  }
@@ -11,6 +7,5 @@ module.exports = (sequelize, SequelizeLib) => {
 	{
 	  timestamps: false,
 	});
-	Role.removeAttribute('id');
 	return Role;
 }

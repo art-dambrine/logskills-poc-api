@@ -1,5 +1,5 @@
 CREATE TABLE `Utilisateurs` (
-  `id_utilisateur` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(255),
   `prenom` varchar(255),
   `mail` varchar(255) NOT NULL,
@@ -11,17 +11,17 @@ CREATE TABLE `Utilisateurs` (
 );
 
 CREATE TABLE `Categories` (
-  `id_categorie` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL
 );
 
 CREATE TABLE `Tags` (
-  `id_tag` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL
 );
 
 CREATE TABLE `Roles` (
-  `id_role` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE `Tags_Activites` (
 );
 
 CREATE TABLE `Activites` (
-  `id_activite` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   `temps_focus` int NOT NULL,
   `temps_pause` int NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `Activites` (
 );
 
 CREATE TABLE `Log_Activites` (
-  `id_log_activite` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `temps_total` int NOT NULL,
   `temps_actif` int NOT NULL,
   `id_activite` int NOT NULL,
@@ -57,19 +57,21 @@ CREATE TABLE `Roles_Utilisateurs` (
   PRIMARY KEY (`id_role`, `id_utilisateur`)
 );
 
-ALTER TABLE `Activites` ADD FOREIGN KEY (`id_categorie`) REFERENCES `Categories` (`id_categorie`);
+ALTER TABLE `Activites` ADD FOREIGN KEY (`id_categorie`) REFERENCES `Categories` (`id`);
 
-ALTER TABLE `Activites` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id_utilisateur`);
+ALTER TABLE `Activites` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id`);
 
-ALTER TABLE `Log_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id_activite`);
+ALTER TABLE `Log_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id`);
 
-ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id_activite`);
+ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id`);
 
-ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_tag`) REFERENCES `Tags` (`id_tag`);
+ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_tag`) REFERENCES `Tags` (`id`);
 
-ALTER TABLE `Roles_Utilisateurs` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id_utilisateur`);
+ALTER TABLE `Roles_Utilisateurs` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id`);
 
-ALTER TABLE `Roles_Utilisateurs` ADD FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`);
+ALTER TABLE `Roles_Utilisateurs` ADD FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id`);
+
+
 
 
 

@@ -2,10 +2,6 @@
  
 module.exports = (sequelize, SequelizeLib) => {
     const Categorie = sequelize.define("Categories", {
-      id_categorie: {
-        type: SequelizeLib.INTEGER,
-        primaryKey: true
-      },
       nom: {
         type: SequelizeLib.STRING
       }
@@ -13,7 +9,6 @@ module.exports = (sequelize, SequelizeLib) => {
     {
       timestamps: false,
     });
-    Categorie.removeAttribute('id');
     return Categorie;
   };
   

@@ -2,10 +2,6 @@
  
 module.exports = (sequelize, SequelizeLib) => {
   const Activite = sequelize.define("Activites", {
-    id_activite: {
-      type: SequelizeLib.INTEGER,
-      primaryKey: true
-    },
     nom: {
       type: SequelizeLib.STRING
     },
@@ -34,7 +30,6 @@ module.exports = (sequelize, SequelizeLib) => {
   {
     timestamps: false,
   });
-  Activite.removeAttribute('id');
   return Activite;
 };
 

@@ -8,7 +8,7 @@ const Op = db.SequelizeLib.Op;
 //Renvois toutes les activités
 exports.getAll = (req, res) => {
 
-  var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }}
+  var condition = {id : { [Op.eq] : `${req.userId}` }}
 
   Activites.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
@@ -25,7 +25,7 @@ exports.getAll = (req, res) => {
 //Renvois toutes les activités d'un utilisateurs (parameters : user_id) 
 exports.getByID = (req, res) => {
 
-  var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }, id_activite : req.param('id')}
+  var condition = {id: { [Op.eq] : `${req.userId}` }, id_activite : req.param('id')}
 
   Activites.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
@@ -48,12 +48,12 @@ exports.create = (req, res) => {
   //Check if categories exist
 	Categories.findOne({
     where: {
-      id_categorie: req.body.id_categorie
+      id : req.body.id_categorie
     },
-    attributes: [ 'id_categorie']
+    attributes: [ 'id']
   }).then(queryResult =>{
     if (queryResult != null){
-      id_cat=queryResult.dataValues['id_categorie']
+      id_cat=queryResult.dataValues['id']
       //Activities create
       if(id_cat != null){
         Activites.create({
@@ -89,7 +89,7 @@ exports.create = (req, res) => {
 exports.update= (req,res)=>{
   Activites.findOne({ 
     where: { 
-      id_activite: req.param('id'), 
+      id: req.param('id'), 
       id_utilisateur: req.userId 
     } 
   }).then(activite =>{
@@ -126,7 +126,7 @@ exports.update= (req,res)=>{
 exports.delete= (req, res)=>{
   Activites.destroy({
     where: {
-        id_activite: req.param('id'), 
+        id: req.param('id'), 
         id_utilisateur: req.userId 
     }
   }).then(activite =>{

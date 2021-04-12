@@ -27,10 +27,20 @@ module.exports = app => {
     const CategoriesController = require("./controllers/CategoriesController.js")
     router.get("/categories", CategoriesController.getAll)
     router.post("/categories", CategoriesController.create)
+    
 
     //Gestion des Logs
+    const Logs_ActivitesController = require("./controllers/Logs_ActivitesController.js")
+    router.get("/activites/logs",[authJwt.verificationToken], Logs_ActivitesController.getAll)
+    router.post("/activites/:id/logs", [authJwt.verificationToken], Logs_ActivitesController.create)
+    router.delete("/activites/:idAct/logs/:idLog",[authJwt.verificationToken], Logs_ActivitesController.deleteOneActivitesLogs)
+    router.delete("/activites/:idAct/logs/",[authJwt.verificationToken], Logs_ActivitesController.deleteAllActivitesLogs)
 
     //Gestion des tags
+    //const TagsController = require("./controllers/TagsController.js")
+    //router.get("/Tags",[authJwt.verificationToken], Logs_ActivitesController.getAll)
+
+
     app.use('/', router);
 
 };

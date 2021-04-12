@@ -2,10 +2,6 @@
  
 module.exports = (sequelize, SequelizeLib) => {
     const Utilisateur = sequelize.define("Utilisateurs", {
-      id_utilisateur: {
-        type: SequelizeLib.INTEGER,
-        primaryKey: true
-      },
       nom: {
         type: SequelizeLib.STRING
       },
@@ -31,6 +27,5 @@ module.exports = (sequelize, SequelizeLib) => {
     {
       timestamps: false,
     });
-    Utilisateur.removeAttribute('id');
     return Utilisateur;
   };
