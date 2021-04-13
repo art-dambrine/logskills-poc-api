@@ -8,9 +8,14 @@ const Op = db.SequelizeLib.Op;
 exports.getThreeLast = (req, res) => {
 
   var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }}
-  
-  //get all user
-
+  //get all user activities
+  Activites.findAll({where: condition}).then(queryResult =>{
+    if (queryResult[0] != null){
+      queryResult.foreach(element => {
+        
+      })
+    }
+  })
   Logs.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
       res.status(200).send(queryResult)

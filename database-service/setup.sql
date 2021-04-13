@@ -43,7 +43,7 @@ CREATE TABLE `Activites` (
   `modifie_le` datetime
 );
 
-CREATE TABLE `Log_Activites` (
+CREATE TABLE `Logs_Activites` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `temps_total` int NOT NULL,
   `temps_actif` int NOT NULL,
@@ -61,7 +61,7 @@ ALTER TABLE `Activites` ADD FOREIGN KEY (`id_categorie`) REFERENCES `Categories`
 
 ALTER TABLE `Activites` ADD FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateurs` (`id`);
 
-ALTER TABLE `Log_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id`);
+ALTER TABLE `Logs_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id`);
 
 ALTER TABLE `Tags_Activites` ADD FOREIGN KEY (`id_activite`) REFERENCES `Activites` (`id`);
 
@@ -91,7 +91,7 @@ VALUES ('Code Java', 25, 5, 3, 1, 1, curdate(), curdate());
 INSERT INTO Tags_Activites (id_tag, id_activite)
 VALUES (1,1);
 
-INSERT INTO Log_Activites (temps_total, temps_actif, id_activite, date)
+INSERT INTO Logs_Activites (temps_total, temps_actif, id_activite, date)
 VALUES (90, 75, 1, curdate());
 
 INSERT INTO Categories (nom)
