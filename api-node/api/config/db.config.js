@@ -22,6 +22,7 @@ db.logskills_database = logskills_database;
 db.Activites = require("../models/Activites.js")(logskills_database, SequelizeLib);
 db.Utilisateurs = require("../models/Utilisateurs.js")(logskills_database, SequelizeLib);
 db.Categories = require("../models/Categories.js")(logskills_database, SequelizeLib);
+db.Logs_Activites= require('../models/Logs_Activites.js')(logskills_database, SequelizeLib);
 db.Roles= require('../models/Roles.js')(logskills_database, SequelizeLib);
 db.Tags = require('../models/Tags.js')(logskills_database, SequelizeLib);
 db.Roles_Utilisateurs= require('../models/Roles_Utilisateurs.js')(logskills_database, SequelizeLib);

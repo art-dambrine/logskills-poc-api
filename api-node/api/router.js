@@ -31,8 +31,8 @@ module.exports = app => {
 
     //Gestion des Logs
     const Logs_ActivitesController = require("./controllers/Logs_ActivitesController.js")
-    router.get("/activites/logs",[authJwt.verificationToken], Logs_ActivitesController.getAll)
-    router.post("/activites/:id/newLog", [authJwt.verificationToken], Logs_ActivitesController.create)
+    router.get("/logs",[authJwt.verificationToken], Logs_ActivitesController.getThreeLast)
+    router.post("/activites/:id/logs", [authJwt.verificationToken], Logs_ActivitesController.create)
     router.delete("/activites/:idAct/logs/:idLog",[authJwt.verificationToken], Logs_ActivitesController.deleteOneActivitesLogs)
     router.delete("/activites/:idAct/logs/",[authJwt.verificationToken], Logs_ActivitesController.deleteAllActivitesLogs)
 

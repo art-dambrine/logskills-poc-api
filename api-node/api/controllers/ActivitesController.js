@@ -54,7 +54,6 @@ exports.create = (req, res) => {
   }).then(queryResult =>{
     if (queryResult != null){
       id_cat=queryResult.dataValues['id']
-      //Activities create
       if(id_cat != null){
         Activites.create({
           nom: req.body.nom,

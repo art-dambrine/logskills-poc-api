@@ -1,15 +1,17 @@
 const db = require("../config/db.config");
-const Logs_Activites = db.Logs_Activites;
 const Activites = db.Activites;
+const Logs = db.Logs_Activites;
 const Tags = db.Tags;
 const Op = db.SequelizeLib.Op;
 
 //Renvois toutes les activités
-exports.getAll = (req, res) => {
+exports.getThreeLast = (req, res) => {
 
   var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }}
+  
+  //get all user
 
-  Logs_Activites.findAll({where: condition}).then(queryResult =>{
+  Logs.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
       res.status(200).send(queryResult)
     }
@@ -35,37 +37,27 @@ exports.create = (req, res) => {
     attributes: [ 'id']
   }).then(queryResult =>{
     if (queryResult != null){
-      id_act=queryResult.dataValues['id']
-      //Activities create
+      id_act=queryResult.dataValues['id'];
       if(id_act != null){
-        Activites.create({
-          temps_total: req.body.focus,
-          temps_actif: req.body.pause,
-          id_activite: req.param('id'),
-          Date: Date.now(),
-        }).then(activite => {
-          for(let i=0; i<req.body.tags.length; i++){
-            Tags.create(
-              {
-                nom:req.body.tags[i]
-              }
-            )
-          }
-          }).then(tags => {
-            //activite.setTags(tags).then(() => {
+        Logs.create({
+          temps_total: req.body.temps_total,
+          temps_actif: req.body.temps_actif,
+          id_activite: id_act,
+          date: Date.now()
+        }).then(osef => {
               res.status(200).send("Logs ajouté");
-            //      });
         }).catch(err => {
             res.status(500).send("Erreur -> " + err);
         });
       }
     }
+    else res.status(404).send("L'activité passé en parametre n'existe pas");
   }); 
 };
 
 //Suppression de Log
 exports.deleteOneActivitesLogs= (req, res)=>{
-  Logs_Activites.destroy({
+  Logs.destroy({
     where: {
         id: req.param('idLog'),
         id_activite: req.param('idAct'), 
@@ -79,7 +71,7 @@ exports.deleteOneActivitesLogs= (req, res)=>{
 
 //Suppression de Log
 exports.deleteAllActivitesLogs= (req, res)=>{
-    Logs_Activites.destroy({
+    Logs.destroy({
       where: {
           id_activite: req.param('id'), 
       }

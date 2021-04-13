@@ -13,7 +13,7 @@ module.exports = (sequelize, SequelizeLib) => {
       },
       date : {
         type: SequelizeLib.DATE
-      }
+      },
     },
     {
       timestamps: false,
