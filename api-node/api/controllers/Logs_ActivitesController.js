@@ -3,29 +3,30 @@ const Activites = db.Activites;
 const Logs = db.Logs_Activites;
 const Tags = db.Tags;
 const Op = db.SequelizeLib.Op;
+const database = db.logskills_database 
 
-//Renvois toutes les activités
-exports.getThreeLast = (req, res) => {
-
-  var condition = {id_utilisateur : { [Op.eq] : `${req.userId}` }}
+function getAllActivitiesId(userID){
+  var ids;
+  var condition = {id_utilisateur : { [Op.eq] : `${userID}` }}
   //get all user activities
   Activites.findAll({where: condition}).then(queryResult =>{
     if (queryResult[0] != null){
-      queryResult.foreach(element => {
-        
+      queryResult.forEach(element => {
+        ids=element.dataValues['id']
       })
     }
   })
-  Logs.findAll({where: condition}).then(queryResult =>{
-    if (queryResult[0] != null){
-      res.status(200).send(queryResult)
-    }
-    else res.status(404).send({message : "Erreur dans la récupération de la liste des logs activitées"})
-  }).catch(err=>{
-      res.status(500).send({
-        message: err.message
-      });
-  })
+  return ids
+}
+
+//Renvois toutes les activités
+exports.getLastLogs = async (req, res) => {
+  var request = "SELECT * FROM Logs_Activites WHERE Logs_Activites.id_activite = (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + " ORDER BY date LIMIT 10);"
+  const results = await database.query(request);
+  if (results[0]!= null){
+        res.status(200).send(results[0])
+  }
+  else res.status(500).send({message : "Erreur dans la récupération de la liste des logs de l'activitées"})
 };
 
 //Création d'un log
@@ -50,7 +51,7 @@ exports.create = (req, res) => {
           id_activite: id_act,
           date: Date.now()
         }).then(osef => {
-              res.status(200).send("Logs ajouté");
+              res.status(200).send({message : "Logs ajouté", id: osef.id});
         }).catch(err => {
             res.status(500).send("Erreur -> " + err);
         });
