@@ -86,5 +86,69 @@ exports.deleteAllActivitesLogs= (req, res)=>{
     }).catch(err => {
       res.status(500).send("Erreur -> " + err);
     });
+}
+
+function dateDiff(date1, date2){
+  var diff = {}                           // Initialisation du retour
+  var tmp = date2 - date1;
+
+  tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
+  diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+
+  tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
+  diff.min = tmp % 60;                    // Extraction du nombre de minutes
+
+  tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
+  diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+   
+  tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
+  diff.day = tmp;
+   
+  return diff;
+}
+
+exports.getStats= async (req, res)=>{
+  var JSONResponse = {}
+  var subJSONResponse = {}
+  var dateDeb = new Date (req.body.date_debut);
+  var dateFin = new Date (req.body.date_fin);
+  
+  var nbJours = dateDiff(dateDeb, dateFin).day;
+  
+  var requestDaily = "SELECT SUM(temps_actif)/"+nbJours+" AS focus_moyen_jour_periode "+
+  "FROM Logs_Activites "+ 
+  "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + req.body.date_debut + "' AND date < '" + req.body.date_fin + "';"
+  const results = await database.query(requestDaily);
+  if (results[0]!= null){
+      Object.assign(JSONResponse,results[0][0])
   }
+  else res.status(500).send({message : "Erreur dans la récupération de la liste des logs de l'activitées"})
+  for(let i=1; i<nbJours+1; i++){
+    temp = new Date(dateFin);
+    temp.setDate(dateFin.getDate() - i);
+    var dateTemp = temp.toISOString().split('T')[0]
+    temp.setDate(dateFin.getDate() - i+1);
+    var dateTemp2 = temp.toISOString().split('T')[0]
+    var requestByDay = "SELECT SUBSTRING_INDEX(date, ' ', 1) AS date_jour, SUM(temps_actif) AS focus_total_jour " +
+    "FROM Logs_Activites " +
+    "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + dateTemp +"' AND date < '" + dateTemp2 +"' GROUP BY date_jour;"
+    const results2 = await database.query(requestByDay);
+    if (results2[0] != null){
+      Object.assign(subJSONResponse,results2[0][0])
+    }
+    else res.status(500).send({message : "Erreur dans la récupération de la liste des logs de l'activitées"})
+  }
+  JSONResponse['focus_jours']=  subJSONResponse
+  
+  requestByAct = "SELECT id_activite, SUM(temps_actif) AS focus_total_activite "+
+  "FROM Logs_Activites "+
+  "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + req.body.date_debut + "' AND date < '" + req.body.date_fin + "' GROUP BY id_activite ORDER BY focus_total_activite DESC;"
+  const results3 = await database.query(requestByAct);
+  if (results3[0]!= null){
+     JSONResponse['focus_activites']= results3[0];  
+  }
+  else res.status(500).send({message : "Erreur dans la récupération de la liste des logs de l'activitées"})
+  
+  res.status(200).send(JSONResponse);
+}
 
