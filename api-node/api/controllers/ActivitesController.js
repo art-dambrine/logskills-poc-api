@@ -1,5 +1,6 @@
 const db = require("../config/db.config");
 const Utilisateurs = db.Utilisateurs;
+const Logs_ActivitesController = require("./Logs_ActivitesController.js")
 const Activites = db.Activites;
 const Categories = db.Categories;
 const Tags = db.Tags;
@@ -125,6 +126,7 @@ exports.update= (req,res)=>{
 }
 
 exports.delete= (req, res)=>{
+  Logs_ActivitesController.deleteAllActivitesLogs(req);
   Activites.destroy({
     where: {
         id: req.param('id'), 

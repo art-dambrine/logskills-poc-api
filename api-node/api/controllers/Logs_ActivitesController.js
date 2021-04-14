@@ -21,7 +21,7 @@ function getAllActivitiesId(userID){
 
 //Renvois toutes les activités
 exports.getLastLogs = async (req, res) => {
-  var request = "SELECT * FROM Logs_Activites WHERE Logs_Activites.id_activite = (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + " ORDER BY date LIMIT 10);"
+  var request = "SELECT * FROM Logs_Activites WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") ORDER BY date DESC LIMIT 10;"
   const results = await database.query(request);
   if (results[0]!= null){
         res.status(200).send(results[0])
