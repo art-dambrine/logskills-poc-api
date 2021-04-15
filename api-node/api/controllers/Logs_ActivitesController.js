@@ -107,12 +107,41 @@ function dateDiff(date1, date2){
   return diff;
 }
 
+function getFirstWeekDay() {
+  var d = Date.now();
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+function getLastWeekDay(d) {
+  var d = Date.now();
+  //var day = d.getDay(),
+  //    diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  d.setDay(0);
+  return new Date(d);
+}
+
 exports.getStats= async (req, res)=>{
+
   var JSONResponse = {}
   var subJSONResponse = {}
-  var dateDeb = new Date (req.body.date_debut);
-  var dateFin = new Date (req.body.date_fin);
+  if(req.body.hasOwnProperty('date_debut'))
+    var dateDeb = new Date (req.body.date_debut);
+  else var dateDeb = getFirstWeekDay();
+  if(req.body.hasOwnProperty('date_fin'))
+    var dateFin = new Date (req.body.date_fin);
+  else {
+    var dateFin = getLastWeekDay();
+    dateFin.setDate(dateFin.getDate()+1)
+  }
+  if(dateDeb == dateFin){
+    dateFin.setDate(dateDeb.getDate()+1)
+  }
   
+  console.log(dateDeb)
+  console.log(dateFin)
+
   var nbJours = dateDiff(dateDeb, dateFin).day;
   
   var requestDaily = "SELECT SUM(temps_actif)/"+nbJours+" AS focus_moyen_jour_periode "+
