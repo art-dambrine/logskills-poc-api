@@ -108,18 +108,18 @@ function dateDiff(date1, date2){
 }
 
 function getFirstWeekDay() {
-  var d = Date.now();
-  var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  var d = new Date(Date.now());
+  var day = d.getDay();
+  var diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   return new Date(d.setDate(diff));
 }
 
 function getLastWeekDay(d) {
-  var d = Date.now();
-  //var day = d.getDay(),
-  //    diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  d.setDay(0);
-  return new Date(d);
+  var d = new Date(Date.now());
+  var day = d.getDay();
+  var diff = d.getDate() - day + 7; // adjust when day is sunday
+
+  return new Date(d.setDate(diff));
 }
 
 exports.getStats= async (req, res)=>{
@@ -144,9 +144,9 @@ exports.getStats= async (req, res)=>{
 
   var nbJours = dateDiff(dateDeb, dateFin).day;
   
-  var requestDaily = "SELECT SUM(temps_actif)/"+nbJours+" AS focus_moyen_jour_periode "+
+  var requestDaily = "SELECT ROUND(SUM(temps_actif)/"+nbJours+") AS focus_moyen_jour_periode "+
   "FROM Logs_Activites "+ 
-  "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + req.body.date_debut + "' AND date < '" + req.body.date_fin + "';"
+  "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + dateDeb.toISOString().split('T')[0] + "' AND date < '" + dateFin.toISOString().split('T')[0] + "';"
   const results = await database.query(requestDaily);
   if (results[0]!= null){
       Object.assign(JSONResponse,results[0][0])
@@ -171,7 +171,7 @@ exports.getStats= async (req, res)=>{
   
   requestByAct = "SELECT id_activite, SUM(temps_actif) AS focus_total_activite "+
   "FROM Logs_Activites "+
-  "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + req.body.date_debut + "' AND date < '" + req.body.date_fin + "' GROUP BY id_activite ORDER BY focus_total_activite DESC;"
+  "WHERE Logs_Activites.id_activite IN (SELECT id FROM Activites WHERE id_utilisateur = " + req.userId + ") AND date >= '" + dateDeb.toISOString().split('T')[0] + "' AND date < '" + dateFin.toISOString().split('T')[0] + "' GROUP BY id_activite ORDER BY focus_total_activite DESC;"
   const results3 = await database.query(requestByAct);
   if (results3[0]!= null){
      JSONResponse['focus_activites']= results3[0];  
