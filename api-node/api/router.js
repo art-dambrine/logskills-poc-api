@@ -35,7 +35,7 @@ module.exports = app => {
     router.post("/activites/:id/logs", [authJwt.verificationToken], Logs_ActivitesController.create)
     router.delete("/activites/:idAct/logs/:idLog",[authJwt.verificationToken], Logs_ActivitesController.deleteOneActivitesLogs)
     router.delete("/activites/:idAct/logs/",[authJwt.verificationToken], Logs_ActivitesController.deleteAllActivitesLogs)
-    router.get("/Stats",[authJwt.verificationToken], Logs_ActivitesController.getStats)
+    router.post("/Stats",[authJwt.verificationToken], Logs_ActivitesController.getStats)
 
     //Gestion des tags
     //const TagsController = require("./controllers/TagsController.js")
