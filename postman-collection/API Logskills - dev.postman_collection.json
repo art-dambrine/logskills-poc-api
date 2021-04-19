@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "fdf9c10a-e69b-4c0a-9471-d5a194b80845",
+		"name": "API Logskills - dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Activites",
+			"item": [
+				{
+					"name": "Liste de toutes les activités de l'utilisateur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/activites",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjE4MzgxLCJleHAiOjE2MTgzMDQ3ODF9.UtoxkvpBbWk6D3bKcL_cWA5w2SLbkebfkuY-MRCOttY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupération de l'activite par l'ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjE4MzgxLCJleHAiOjE2MTgzMDQ3ODF9.UtoxkvpBbWk6D3bKcL_cWA5w2SLbkebfkuY-MRCOttY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/activites:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites:id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modification d'une activité",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjE4MzgxLCJleHAiOjE2MTgzMDQ3ODF9.UtoxkvpBbWk6D3bKcL_cWA5w2SLbkebfkuY-MRCOttY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Code JAVA\",\r\n    \"focus\": 25,\r\n    \"pause\": 5,\r\n    \"round\": 3,\r\n    \"id_categorie\": 1    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suppression d'une activité",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjE4MzgxLCJleHAiOjE2MTgzMDQ3ODF9.UtoxkvpBbWk6D3bKcL_cWA5w2SLbkebfkuY-MRCOttY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Création d'une activité",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Code 5\",\r\n    \"focus\": 25,\r\n    \"pause\": 5,\r\n    \"round\": 3,\r\n    \"id_categorie\": 1,\r\n    \"tags\": [\"Douleur\",\"Pleures\",\"Exorciste\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Récupération de toutes les catégories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MTU1NDYyLCJleHAiOjE2MTgyNDE4NjJ9.k6uxRwvQ0JhFKe4Xc3tpdTfLGTr8EWY9S6vnxeNruYY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Code JAVA\",\r\n    \"focus\": 25,\r\n    \"pause\": 5,\r\n    \"round\": 3,\r\n    \"id_categorie\": 1,\r\n    \"tags\": [\"Douleur\",\"Pleures\",\"Exorciste\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Création d'une catégorie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Travail\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilisateurs",
+			"item": [
+				{
+					"name": "Créer utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Thérèse\",\r\n    \"prenom\": \"Aby\",\r\n    \"mail\": \"therese.aby@gmail.com\",\r\n    \"login\": \"therese-aby\",\r\n    \"password\": \"ESIEE123\",\r\n    \"roles\": [\"utilisateur\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Créer utilisateur 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Joseph\",\r\n    \"prenom\": \"Saucisse\",\r\n    \"mail\": \"jojo@gmail.com\",\r\n    \"login\": \"jojosau\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\"UTILISATEUR\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Connexion d'un utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"login\": \"jojosau\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profil utilisateur",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE3OTU1NTgwLCJleHAiOjE2MTgwNDE5ODB9.GJ0fcfeqgYosUU-YZj2xHIzk0E1zfPKevTZMQqgPtEE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profil",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profil"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Logs",
+			"item": [
+				{
+					"name": "Récupération de tout les logs d'un utilisateur",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Création d'un log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"temps_total\": 100,\r\n    \"temps_actif\": 25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites/:id/logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites",
+								":id",
+								"logs"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suppression d'un seul Log sur une activité",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjM3NjEwLCJleHAiOjE2MTgzMjQwMTB9.0K932QjCTZQc8o2cNm9rvXoubpD108jKIej77Naddj8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites/:idAct/logs/:idLog",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites",
+								":idAct",
+								"logs",
+								":idLog"
+							],
+							"variable": [
+								{
+									"key": "idAct",
+									"value": ""
+								},
+								{
+									"key": "idLog",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suppression de tout les logs d'une activité",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjM3NjEwLCJleHAiOjE2MTgzMjQwMTB9.0K932QjCTZQc8o2cNm9rvXoubpD108jKIej77Naddj8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/activites/:idAct/logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites",
+								":idAct",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "x-access-token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE4MjM3NjEwLCJleHAiOjE2MTgzMjQwMTB9.0K932QjCTZQc8o2cNm9rvXoubpD108jKIej77Naddj8",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "idAct",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récuperation des stats d'un user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"date_debut\" : \"2021-04-15\",\r\n \"date_fin\" : \"2021-04-16\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/stats",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récuperation stats semaine default",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/stats",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mise en route",
+			"item": [
+				{
+					"name": "Créer utilisateur 2 Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Joseph\",\r\n    \"prenom\": \"Saucisse\",\r\n    \"mail\": \"jojo@gmail.com\",\r\n    \"login\": \"jojosau\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\"UTILISATEUR\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Connexion d'un utilisateur Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"login\": \"jojosau\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Création d'une activité Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Code JAVAX\",\r\n    \"focus\": 25,\r\n    \"pause\": 5,\r\n    \"round\": 3,\r\n    \"id_categorie\": 1,\r\n    \"tags\": [\"Douleur\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Création d'un log Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"temps_total\": 100,\r\n    \"temps_actif\": 75\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activites/:id/logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activites",
+								":id",
+								"logs"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
