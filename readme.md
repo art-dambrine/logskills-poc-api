@@ -7,8 +7,8 @@ We are going to use 'mariadb' like our specialized database and 'Node.js' as our
 If you want to know more about the API check the dev documentation in `postman-collection` folder
 
 
-### RUN THE PROJECT
-`docker-compose up`
+### RUN THE PROJECT IN DEV
+`docker-compose -f docker-compose-dev.yml up -d`
 
 ### INSPECT YOUR MYSQL CONTAINER(to see your database)
 1. docker ps
